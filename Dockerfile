@@ -5,7 +5,7 @@ RUN apt update \
 && apt install maven -y
 
 WORKDIR /app/hello-world
-ADD ./* .
+COPY . .
 RUN mvn clean install spring-boot:repackage -Dmaven.test.skip=true
 RUN mv /app/hello-world/target/*.war /app/hello-world/target/app.war
 
