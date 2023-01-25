@@ -6,7 +6,7 @@ RUN apt update \
 
 WORKDIR /app/hello-world
 ADD ./* .
-RUN mvn install -Dmaven.test.skip=true
+RUN mvn clean install spring-boot:repackage -Dmaven.test.skip=true
 RUN mv /app/hello-world/target/*.war /app/hello-world/target/app.war
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/hello-world/app.war"]
