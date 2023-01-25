@@ -1,6 +1,14 @@
 FROM openjdk:8-jre
-ARG JAR_FILE=target/*.war
-COPY ${JAR_FILE} app.war
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.war"]
+# ARG JAR_FILE=target/*.war
+
+RUN apt update \
+&& apt install maven -y
+
+WORKDIR /app/hello-world
+ADD ./* .
+RUN mvn install -Dmaven.test.skip=true
+RUN mv /app/hello-world/target/*.war /app/hello-world/target/app.war
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/hello-world/app.war"]
 
 # kubectl expose deployment.apps demo-image --port=9000 --name=gethost 
