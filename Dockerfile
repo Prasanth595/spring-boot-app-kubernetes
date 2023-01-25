@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:8
 # ARG JAR_FILE=target/*.war
 
 RUN apt update \
